@@ -111,18 +111,30 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {predictions.slice(0, 3).map((pred) => (
+              {predictions.slice(0, 6).map((pred) => (
                 <Card key={pred.id} className="border-l-4 border-l-primary">
                   <CardContent className="p-4">
-                    <Badge variant="outline" className="mb-2">
-                      {pred.type}
-                    </Badge>
+                    <div className="flex items-center justify-between mb-2">
+                      <Badge variant="outline">
+                        {pred.type}
+                      </Badge>
+                      <span className="text-[10px] text-muted-foreground font-medium truncate max-w-[140px]" title={pred.method}>
+                        {pred.method}
+                      </span>
+                    </div>
                     <p className="font-medium text-sm">{pred.target}</p>
                     <p className="text-2xl font-bold mt-1">
                       {typeof pred.value === "number"
                         ? pred.value.toLocaleString()
+                        : Array.isArray(pred.value)
+                        ? pred.value[0]?.toLocaleString()
                         : pred.value}
                     </p>
+                    {pred.bounds && (
+                      <p className="text-[11px] text-muted-foreground mt-0.5 font-mono">
+                        95% CI: [{pred.bounds.lower.toLocaleString()} - {pred.bounds.upper.toLocaleString()}]
+                      </p>
+                    )}
                     <p className="text-xs text-muted-foreground mt-2">
                       {pred.insight}
                     </p>

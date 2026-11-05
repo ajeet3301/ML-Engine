@@ -26,6 +26,7 @@ export interface AIInsight {
   confidence: number;
   category: string;
   createdAt: string;
+  metadata?: Record<string, any>;
 }
 
 export interface Prediction {
@@ -38,6 +39,15 @@ export interface Prediction {
   horizon?: string;
   insight: string;
   createdAt: string;
+  bounds?: { lower: number; upper: number };
+  metrics?: {
+    r2?: number;
+    rmse?: number;
+    mae?: number;
+    mape?: number;
+  };
+  trajectory?: number[];
+  metadata?: Record<string, any>;
 }
 
 export interface ChartConfig {
