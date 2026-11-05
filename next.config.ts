@@ -1,6 +1,15 @@
-/// <reference types="next" />
-/// <reference types="next/image-types/global" />
-import "./.next/types/routes.d.ts";
+import type { NextConfig } from "next";
 
-// NOTE: This file should not be edited
-// see https://nextjs.org/docs/app/api-reference/config/typescript for more information.
+const nextConfig: NextConfig = {
+  output: 'standalone',
+  images: {
+    unoptimized: true,
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb',
+    },
+  },
+};
+
+export default nextConfig;
